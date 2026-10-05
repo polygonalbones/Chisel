@@ -5,6 +5,11 @@
   dotnetCorePackages,
   zlib,
   openssl,
+  fontconfig,
+  libGL,
+  libx11,
+  libsm,
+  libice,
 }:
 let
   dotnetPkg =
@@ -17,6 +22,11 @@ let
     zlib
     zlib.dev
     openssl
+    fontconfig
+    libGL
+    libx11
+    libsm
+    libice
   ];
 in
 mkShell {
