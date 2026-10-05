@@ -12,7 +12,7 @@ let
       sdk_8_0
     ]);
 
-  packages = [
+  nativeBuildInputs = [
     dotnetPkg
     zlib
     zlib.dev
@@ -20,7 +20,7 @@ let
   ];
 in
 mkShell {
-  inherit packages;
+  inherit nativeBuildInputs;
 
   shellHook = ''
     DOTNET_ROOT="${dotnetPkg}";
@@ -28,6 +28,9 @@ mkShell {
 
   NIX_LD_LIBRARY_PATH = lib.makeLibraryPath ([
     stdenv.cc.cc
-  ] ++ packages);
+  ] ++ nativeBuildInputs);
+  LD_LIBRARY_PATH = lib.makeLibraryPath ([
+    stdenv.cc.cc.lib
+  ] ++ nativeBuildInputs);
   NIX_LD = "${stdenv.cc.libc_bin}/bin/ld.so";
 }
